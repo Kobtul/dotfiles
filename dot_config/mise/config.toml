@@ -15,6 +15,7 @@ idiomatic_version_file_enable_tools = []
 "github:alexpasmantier/television" = "latest"
 "github:FredrikNoren/ungit" = "latest"
 "github:MitMaro/git-interactive-rebase-tool" = "latest"
+"github:wagoodman/dive" = "latest"
 "gron" = "latest"
 "helm" = "latest"
 "hexyl" = "latest"
