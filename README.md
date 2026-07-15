@@ -9,7 +9,7 @@ Managed with [chezmoi](https://www.chezmoi.io/).
 - **Ghostty** terminal config
 - **Karabiner Elements** keyboard remapping
 - **Mise** for CLI tools
-- **Nanobrew** for macOS graphical apps (Homebrew casks without Homebrew)
+- **Homebrew** for macOS graphical apps (casks only)
 - **Custom scripts** in `~/.local/bin` (e.g. `git-get` for cloning repos into organized paths)
 - **JetBrains Mono Nerd Font** auto-installation
 

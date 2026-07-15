@@ -5,19 +5,19 @@ echo
 echo "### INSTALL GUI APPS ###"
 source ~/.profile
 
-test -w /opt/nanobrew || sudo "$(mise which nb)" init
-nb telemetry off
-nb install --cask \
+brew install --cask --adopt \
+  android-commandlinetools \
   arc \
+  bettercapture \
   deskpad \
   ghostty \
   gimp \
   heynote \
   inkscape \
   karabiner-elements \
-  keepingyouawake \
   mac-mouse-fix \
   meetingbar \
   mitmproxy \
   monitorcontrol \
+  temurin \
   zed || true
