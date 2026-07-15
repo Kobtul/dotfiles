@@ -1,7 +1,0 @@
-#!/bin/bash
-set -euxo pipefail
-
-echo ""
-echo "### INSTALL BREW DEPENDENCIES ###"
-source ~/.profile
-brew bundle install --global # {{ include "dot_Brewfile" | sha256sum }}

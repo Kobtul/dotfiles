@@ -4,4 +4,4 @@ set -euxo pipefail
 echo
 echo "### INSTALL MISE PLUGINS ###"
 source ~/.profile
-mise up  # {{ include "dot_config/mise/config.toml" | sha256sum }}
+mise up  # {{ include "dot_config/mise/config.toml.tmpl" | sha256sum }}

@@ -1,0 +1,1 @@
+nb completions fish | source
