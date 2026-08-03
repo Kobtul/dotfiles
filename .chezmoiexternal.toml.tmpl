@@ -8,21 +8,15 @@
 {{- end -}}
 
 {{- if $fontDir }}
+{{- range list
+      "JetBrainsMonoNerdFont-Medium.ttf"
+      "JetBrainsMonoNerdFontMono-Medium.ttf"
+      "JetBrainsMonoNerdFont-Bold.ttf"
+      "JetBrainsMonoNerdFontMono-Bold.ttf" }}
 
-["{{ $fontDir }}/JetBrainsMonoNerdFont-Medium.ttf"]
-type = "file"
-url = "https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/JetBrainsMono/Ligatures/Medium/JetBrainsMonoNerdFont-Medium.ttf"
-
-["{{ $fontDir }}/JetBrainsMonoNerdFontMono-Medium.ttf"]
-type = "file"
-url = "https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/JetBrainsMono/Ligatures/Medium/JetBrainsMonoNerdFontMono-Medium.ttf"
-
-["{{ $fontDir }}/JetBrainsMonoNerdFont-Bold.ttf"]
-type = "file"
-url = "https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/JetBrainsMono/Ligatures/Bold/JetBrainsMonoNerdFont-Bold.ttf"
-
-["{{ $fontDir }}/JetBrainsMonoNerdFontMono-Bold.ttf"]
-type = "file"
-url = "https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/JetBrainsMono/Ligatures/Bold/JetBrainsMonoNerdFontMono-Bold.ttf"
-
+["{{ $fontDir }}/{{ . }}"]
+type = "archive-file"
+url = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz"
+path = "{{ . }}"
+{{- end }}
 {{- end }}
