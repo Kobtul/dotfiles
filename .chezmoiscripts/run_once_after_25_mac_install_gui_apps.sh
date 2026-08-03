@@ -6,7 +6,6 @@ echo "### INSTALL GUI APPS ###"
 source ~/.profile
 
 brew install --cask --adopt \
-  android-commandlinetools \
   arc \
   bettercapture \
   deskpad \
