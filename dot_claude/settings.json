@@ -6,10 +6,11 @@
   "permissions": {
     "defaultMode": "auto"
   },
+  "model": "claude-fable-5[1m]",
+  "disableClaudeAiConnectors": true,
+  "effortLevel": "low",
   "tui": "fullscreen",
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
-  "skipAutoPermissionPrompt": true,
-  "model": "claude-fable-5[1m]",
-  "disableClaudeAiConnectors": true
+  "skipAutoPermissionPrompt": true
 }
