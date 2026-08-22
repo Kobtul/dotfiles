@@ -16,5 +16,5 @@ Managed with [chezmoi](https://www.chezmoi.io/).
 ## Bootstrap
 
 ```sh
-BINDIR=~/.local/bin sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply JanPokorny
+BINDIR=~/.local/bin sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply Kobtul
 ```

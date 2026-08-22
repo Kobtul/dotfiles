@@ -34,5 +34,4 @@ idiomatic_version_file_enable_tools = []
 "yq" = "latest"
 {{ if eq .chezmoi.os "darwin" -}}
 "github:docker/docker-credential-helpers" = { version = "latest", matching = "osxkeychain-v", rename_exe = "docker-credential-osxkeychain" }
-"http:ibmcloud" = { version = "latest", url = "https://download.clis.cloud.ibm.com/ibm-cloud-cli-dn/2.43.1/binaries/IBM_Cloud_CLI_2.43.1_macos_arm64.tgz" }
 {{- end }}
