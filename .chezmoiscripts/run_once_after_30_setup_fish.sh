@@ -3,5 +3,7 @@ set -euxo pipefail
 
 echo
 echo "### SETUP FISH ###"
-grep -qxF "$HOME/.local/share/mise/shims/fish" /etc/shells || echo "$HOME/.local/share/mise/shims/fish" | sudo tee -a /etc/shells
-chsh -s "$HOME/.local/share/mise/shims/fish"
+source ~/.profile
+fish_path="$(command -v fish)"
+grep -qxF "$fish_path" /etc/shells || echo "$fish_path" | sudo tee -a /etc/shells
+chsh -s "$fish_path"
