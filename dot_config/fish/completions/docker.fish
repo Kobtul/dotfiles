@@ -1,1 +1,1 @@
-docker completion fish | source
+command -q docker && docker completion fish | source

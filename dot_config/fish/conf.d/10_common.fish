@@ -23,8 +23,6 @@ abbr gl 'git log --oneline'
 abbr prc 'gh pr create --web'
 abbr prv 'gh pr view --web'
 
-abbr kc 'kubectl config use-context'
-
 if command -v pbcopy &>/dev/null
     abbr cbc pbcopy
     abbr cbp pbpaste

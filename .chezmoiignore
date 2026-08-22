@@ -1,4 +1,5 @@
 {{- if ne .chezmoi.os "darwin" -}}
 Library
+.docker/config.json
 **/*_mac_*
 {{- end -}}

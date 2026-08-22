@@ -1,0 +1,9 @@
+#!/bin/bash
+set -euxo pipefail
+
+echo
+echo "### INSTALL HOMEBREW PACKAGES ###"
+source ~/.profile
+
+command -v brew || exit 0
+brew bundle --global

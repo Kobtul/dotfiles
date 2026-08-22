@@ -1,0 +1,7 @@
+#!/bin/bash
+set -exo pipefail
+
+echo
+echo "### INSTALL MISE TOOLS ###"
+source ~/.profile
+mise install  # {{ include "dot_config/mise/config.toml.tmpl" | sha256sum }}
