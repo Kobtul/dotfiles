@@ -21,4 +21,5 @@ brew install --cask --adopt \
   monitorcontrol \
   opencode-desktop \
   temurin \
-  zed || true
+  zed \
+  zen || true
