@@ -6,7 +6,7 @@
   https://github.com/39aldo39/klfc
 -->
 <!--Last edited by Ukelele version 457 on 2026-04-15 at 10:13 (GMT+2)-->
-<keyboard group="126" id="-25258" name="ysoftwareab xkb cz" maxout="1">
+<keyboard group="126" id="-25258" name="Czech XKB QWERTY" maxout="1">
     <layouts>
         <layout first="0" last="0" mapSet="defaultKeyMapSet" modifiers="defaultModifierMap"/>
     </layouts>
@@ -44,7 +44,7 @@
             <key code="3" action="f"/>
             <key code="4" action="h"/>
             <key code="5" action="g"/>
-            <key code="6" action="y"/>
+            <key code="6" action="z"/>
             <key code="7" action="x"/>
             <key code="8" action="c"/>
             <key code="9" action="v"/>
@@ -54,7 +54,7 @@
             <key code="13" action="w"/>
             <key code="14" action="e"/>
             <key code="15" action="r"/>
-            <key code="16" action="z"/>
+            <key code="16" action="y"/>
             <key code="17" action="t"/>
             <key code="18" output="+"/>
             <key code="19" output="ě"/>
@@ -142,7 +142,7 @@
             <key code="3" action="F"/>
             <key code="4" action="H"/>
             <key code="5" action="G"/>
-            <key code="6" action="Y"/>
+            <key code="6" action="Z"/>
             <key code="7" action="X"/>
             <key code="8" action="C"/>
             <key code="9" action="V"/>
@@ -152,7 +152,7 @@
             <key code="13" action="W"/>
             <key code="14" action="E"/>
             <key code="15" action="R"/>
-            <key code="16" action="Z"/>
+            <key code="16" action="Y"/>
             <key code="17" action="T"/>
             <key code="18" output="1"/>
             <key code="19" output="2"/>
@@ -436,7 +436,7 @@
             <key code="3" action="F"/>
             <key code="4" action="H"/>
             <key code="5" action="G"/>
-            <key code="6" action="Y"/>
+            <key code="6" action="Z"/>
             <key code="7" action="X"/>
             <key code="8" action="C"/>
             <key code="9" action="V"/>
@@ -446,7 +446,7 @@
             <key code="13" action="W"/>
             <key code="14" action="E"/>
             <key code="15" action="R"/>
-            <key code="16" action="Z"/>
+            <key code="16" action="Y"/>
             <key code="17" action="T"/>
             <key code="18" output="+"/>
             <key code="19" output="2"/>
@@ -534,7 +534,7 @@
             <key code="3" action="f"/>
             <key code="4" action="h"/>
             <key code="5" action="g"/>
-            <key code="6" action="y"/>
+            <key code="6" action="z"/>
             <key code="7" action="x"/>
             <key code="8" action="c"/>
             <key code="9" action="v"/>
@@ -544,7 +544,7 @@
             <key code="13" action="w"/>
             <key code="14" action="e"/>
             <key code="15" action="r"/>
-            <key code="16" action="z"/>
+            <key code="16" action="y"/>
             <key code="17" action="t"/>
             <key code="18" output="1"/>
             <key code="19" output="ě"/>

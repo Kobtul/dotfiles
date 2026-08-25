@@ -18,5 +18,6 @@ brew install --cask --adopt \
   meetingbar \
   mitmproxy \
   monitorcontrol \
+  opencode-desktop \
   temurin \
   zed || true
