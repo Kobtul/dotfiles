@@ -8,6 +8,7 @@ source ~/.profile
 brew install --cask --adopt \
   arc \
   bettercapture \
+  chatgpt \
   deskpad \
   ghostty \
   gimp \
