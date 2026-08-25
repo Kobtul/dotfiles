@@ -8,8 +8,8 @@ Managed with [chezmoi](https://www.chezmoi.io/).
 - **Git** config with aliases and interactive rebase tool
 - **Ghostty** terminal config
 - **Karabiner Elements** keyboard remapping
-- **Homebrew** for CLI tools and macOS graphical apps
-- **Mise** for managing Node.js versions
+- **Homebrew** for system CLI tools and macOS graphical apps
+- **Mise** for Node.js, Claude Code, and the OpenCode CLI
 - **uv** for Python versions, projects, and virtual environments
 - **Claude Code and OpenCode** with shared global coding instructions
 - **Custom scripts** in `~/.local/bin` (e.g. `git-get` for cloning repos into organized paths)
@@ -28,3 +28,5 @@ BINDIR=~/.local/bin sh -c "$(curl -fsLS get.chezmoi.io)"
 ## OpenCode
 
 Run `opencode`, then use `/connect` to authenticate a provider and `/models` to select a model. Credentials remain local and are not managed by chezmoi.
+
+Claude Code and the OpenCode CLI are updated with `mise upgrade`. OpenCode Desktop and other macOS apps remain managed by Homebrew.
