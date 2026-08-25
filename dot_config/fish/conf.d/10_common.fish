@@ -1,8 +1,17 @@
 set fish_greeting
 
-source ~/.profile
+set -gx MANPATH /opt/homebrew/share/man $MANPATH
+set -gx INFOPATH /opt/homebrew/share/info $INFOPATH
+set -gx XDG_CONFIG_HOME $HOME/.config
+set -gx PATH $HOME/.local/bin /opt/homebrew/bin /opt/homebrew/sbin $HOME/.local/share/mise/shims /usr/bin /bin /usr/sbin /sbin
 
-mise activate fish | source
+if test (uname) = Darwin
+    set -gx DOCKER_HOST unix://$XDG_CONFIG_HOME/colima/default/docker.sock
+else if test (uname) = Linux
+    set -gx REQUESTS_CA_BUNDLE /etc/ssl/certs/ca-certificates.crt
+end
+
+$HOME/.local/bin/mise activate fish | source
 
 # Aliases
 
