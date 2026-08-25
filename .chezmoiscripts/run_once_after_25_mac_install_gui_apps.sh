@@ -21,5 +21,6 @@ brew install --cask --adopt \
   monitorcontrol \
   opencode-desktop \
   temurin \
+  visual-studio-code \
   zed \
   zen || true
