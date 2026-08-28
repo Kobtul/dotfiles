@@ -10,6 +10,7 @@ brew install --cask --adopt \
   bettercapture \
   chatgpt \
   deskpad \
+  discord \
   ghostty \
   gimp \
   heynote \
