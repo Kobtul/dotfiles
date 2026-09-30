@@ -6,6 +6,7 @@ minimum_release_age = "0"
 github.credential_command = "gh auth token"
 
 [dotfiles]
+"~/.agents/skills" = { source = "home/.agents/skills", mode = "symlink-each", manifest = "git" }
 "~/.config" = { source = "home/.config", mode = "symlink-each", manifest = "git", exclude = ["karabiner"] }
 "~/.local/bin" = { source = "home/.local/bin", mode = "symlink-each", manifest = "git" }
 "~/.claude" = { source = "home/.claude", mode = "symlink-each", manifest = "git", exclude = ["settings.json"] }
