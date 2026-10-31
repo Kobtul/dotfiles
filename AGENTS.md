@@ -4,8 +4,8 @@ This repo is one user's global mise config and dotfiles. Read this file when
 you change the dotfiles.
 
 `etc/AGENTS.md` is the user-global agent instructions. It is deployed to
-`~/.claude/CLAUDE.md`. Change it only when the task is about those
-instructions.
+`~/.claude/CLAUDE.md`, `~/.codex/AGENTS.md` and `~/.config/opencode/AGENTS.md`.
+Change it only when the task is about those instructions.
 
 ## Terms
 

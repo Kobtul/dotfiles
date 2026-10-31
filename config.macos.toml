@@ -8,7 +8,9 @@ login_shell = "/opt/homebrew/bin/fish"
 "brew:fish" = "latest"
 "brew-cask:arc" = "latest"
 "brew-cask:bettercapture" = "latest"
+"brew-cask:chatgpt" = "latest"
 "brew-cask:deskpad" = "latest"
+"brew-cask:discord" = "latest"
 "brew-cask:ghostty" = "latest"
 "brew-cask:gimp" = "latest"
 "brew-cask:heynote" = "latest"
@@ -17,8 +19,12 @@ login_shell = "/opt/homebrew/bin/fish"
 "brew-cask:mac-mouse-fix" = "latest"
 "brew-cask:mitmproxy" = "latest"
 "brew-cask:monitorcontrol" = "latest"
+"brew-cask:opencode-desktop" = "latest"
 "brew-cask:puremac" = "latest"
+"brew-cask:temurin" = "latest"
+"brew-cask:visual-studio-code" = "latest"
 "brew-cask:zed" = "latest"
+"brew-cask:zen" = "latest"
 # todo: https://github.com/adileo/squirreldisk
 
 [bootstrap.macos.launchd.agents.env]
@@ -35,4 +41,10 @@ _.path = [
 ]
 
 [tools]
+"github:ip7z/7zip" = { version = "latest", asset_pattern = "7z*-mac.tar.xz" }
+"http:ssh-copy-id" = { version = "10.2p1", url = "https://raw.githubusercontent.com/openssh/openssh-portable/V_10_2_P1/contrib/ssh-copy-id" }
+android-sdk = "latest"
 "github:docker/docker-credential-helpers" = { version = "latest", matching = "osxkeychain-v", rename_exe = "docker-credential-osxkeychain" }
+
+[bootstrap.hooks]
+post-tools = "yes | mise x android-sdk -- sdkmanager platform-tools >/dev/null"

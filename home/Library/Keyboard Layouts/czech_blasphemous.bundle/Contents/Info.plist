@@ -8,14 +8,14 @@
 	<string>czech_blasphemous</string>
 	<key>CFBundleVersion</key>
 	<string></string>
-	<key>KLInfo_ysoftwareab xkb cz</key>
+	<key>KLInfo_Czech XKB QWERTY</key>
 	<dict>
 		<key>TICapsLockLanguageSwitchCapable</key>
 		<false/>
 		<key>TISIconIsTemplate</key>
 		<false/>
 		<key>TISInputSourceID</key>
-		<string>org.sil.ukelele.keyboardlayout.czech_blasphemous.ysoftwareabxkbcz</string>
+		<string>org.sil.ukelele.keyboardlayout.czech_blasphemous.czechxkbqwerty</string>
 		<key>TISIntendedLanguage</key>
 		<string>cs-CZ</string>
 	</dict>

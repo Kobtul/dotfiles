@@ -10,6 +10,8 @@ install_layout = "identity"
 [dotfiles]
 "~" = { source = "home", mode = "copy" }
 "~/.claude/CLAUDE.md" = { source = "etc/AGENTS.md", mode = "copy" }
+"~/.codex/AGENTS.md" = { source = "etc/AGENTS.md", mode = "copy" }
+"~/.config/opencode/AGENTS.md" = { source = "etc/AGENTS.md", mode = "copy" }
 
 [bootstrap.brew]
 adopt = true
@@ -27,6 +29,7 @@ agent-browser = "latest"
 ast-grep = "latest"
 bat = "latest"
 claude = { version = "latest", minimum_release_age = "0s" }
+codex = "latest"
 colima = "latest"
 croc = "latest"
 dive = "latest"
@@ -43,6 +46,7 @@ kubectl = "latest"
 lima = "latest"
 lsd = "latest"
 node = "26"
+opencode = "latest"
 ripgrep = "latest"
 sd = "latest"
 television = "latest"
