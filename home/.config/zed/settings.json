@@ -1,5 +1,12 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "disable_ai": true,
   "cli_default_open_behavior": "existing_window",
   "title_bar": {
     "show_sign_in": false,
@@ -14,11 +21,23 @@
     "light": "Material Icon Theme",
     "dark": "Material Icon Theme",
   },
-  "diff_view_style": "unified",
+  "diff_view_style": "split",
+  "project_panel": {
+    "dock": "left",
+  },
+  "disable_ai": true,
+  "edit_predictions": {
+    "provider": "zed",
+  },
   "session": {
     "trust_all_worktrees": true,
   },
   "terminal": {
+    "dock": "bottom",
+    "flexible": false,
+    "shell": {
+      "program": "fish",
+    },
     "font_family": "JetBrainsMono Nerd Font",
     "max_scroll_history_lines": 100000,
   },
@@ -27,7 +46,6 @@
     "metrics": false,
   },
   "git": {
-    "diff_base": "default_branch",
     "inline_blame": {
       "enabled": true,
     },
@@ -41,4 +59,9 @@
   },
   "ui_font_family": "JetBrainsMono Nerd Font",
   "buffer_font_size": 13,
+  "languages": {
+    "Python": {
+      "language_servers": ["pyrefly"],
+    },
+  },
 }
