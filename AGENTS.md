@@ -4,8 +4,8 @@ This repo is one user's global mise config and dotfiles. Read this file when
 you change the dotfiles.
 
 `etc/AGENTS.md` is the user-global agent instructions. It is deployed to
-`~/.claude/CLAUDE.md` and `~/.pi/agent/AGENTS.md`. Change it only when the task
-is about those instructions.
+`~/.claude/CLAUDE.md`. Change it only when the task is about those
+instructions.
 
 ## Terms
 
@@ -31,17 +31,6 @@ adopt it or apply it.
 
 `mise dot apply` overwrites applied files. Local edits to those files are lost
 unless you adopt them first.
-
-## Paseo
-
-`home/.paseo/config.json` is deployed by `mise dot apply`, but the daemon does
-not watch it: it keeps the config it loaded in memory. Only
-`paseo daemon reload` (reloadable paths such as `daemon.agentProfiles`) or a
-restart makes the change live.
-
-Never reload, restart, or stop Paseo from an agent session: agents, including
-the one you are running in, die with it. Apply the file, then tell the user to
-run `paseo daemon reload` themselves.
 
 ## Bootstrap
 

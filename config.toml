@@ -10,7 +10,6 @@ install_layout = "identity"
 [dotfiles]
 "~" = { source = "home", mode = "copy" }
 "~/.claude/CLAUDE.md" = { source = "etc/AGENTS.md", mode = "copy" }
-"~/.pi/agent/AGENTS.md" = { source = "etc/AGENTS.md", mode = "copy" }
 
 [bootstrap.brew]
 adopt = true
@@ -44,31 +43,23 @@ kubectl = "latest"
 lima = "latest"
 lsd = "latest"
 node = "26"
-oc = "latest"
-pi = "latest"
-pitchfork = "latest"
 ripgrep = "latest"
 sd = "latest"
 television = "latest"
 usage = "latest"
 uv = "latest"
 yq = "latest"
-fnox = { version = "latest", workflow = "release.yml" }
 
 [tasks.bootstrap]
 run = """
 mkdir -p ~/.docker/cli-plugins
 ln -sf ~/.local/share/mise/shims/docker-buildx ~/.docker/cli-plugins/docker-buildx
 ln -sf ~/.local/share/mise/shims/docker-compose ~/.docker/cli-plugins/docker-compose
-
-pitchfork boot enable
 """
 
 [env]
 XDG_CONFIG_HOME = "{{ env.HOME }}/.config"
-NODE_EXTRA_CA_CERTS = "{{ get_env(name='TMPDIR', default='/tmp') }}/dam-llm-service-ca.crt"
 npm_config_min_release_age = "7"
-npm_config_min_release_age_exclude = "@dam-agents/cli"
 YARN_NPM_MINIMAL_AGE_GATE = "10080"
 pnpm_config_minimum_release_age = "10080"
 UV_EXCLUDE_NEWER = "7 days"
