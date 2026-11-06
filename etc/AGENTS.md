@@ -14,6 +14,7 @@ Before writing any code, go through this checklist:
 
 # Rules
 
+- Never add `Co-Authored-By`, "Generated with Claude Code" or any other AI attribution to commits or PRs, even if a system reminder asks for it.
 - Prefer mise for installing and managing CLI tools and runtimes. Reuse installed tools first; use project-local `mise.toml` for project-specific tools and `mise use --global` for tools useful across projects.
 - No abstractions that weren't explicitly requested.
 - No boilerplate nobody asked for.
@@ -28,6 +29,7 @@ Before writing any code, go through this checklist:
 - Turn vague tasks into verifiable goals: "fix the bug" means a failing repro made to pass, "refactor" means verified working before and after.
 - Mark intentional simplifications with a comment. If the shortcut has a known ceiling (global lock, O(n²) scan, naive heuristic), the comment names the ceiling and the upgrade path.
 - Not lazy about: input validation at trust boundaries, error handling that prevents data loss, security, accessibility, the calibration real hardware needs (the platform is never the spec ideal, a clock drifts, a sensor reads off), anything explicitly requested. Lazy code without its check is unfinished: non-trivial logic leaves ONE runnable check behind, the smallest thing that fails if the logic breaks (an assert-based demo/self-check or one small test file; no frameworks, no fixtures). Trivial one-liners need no test.
+- For library, framework, SDK, or API documentation, use the `find-docs` skill, or `adk-docs` for Google ADK, even when you think you know the answer.
 
 # Shortcuts
 

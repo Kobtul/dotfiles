@@ -7,6 +7,26 @@ you change the dotfiles.
 `~/.claude/CLAUDE.md`, `~/.codex/AGENTS.md` and `~/.config/opencode/AGENTS.md`.
 Change it only when the task is about those instructions.
 
+If `HANDOFF.md` exists, read it before anything else and keep it current. It is
+git-ignored.
+
+If `AGENTS.local.md` exists, read it after this file. It is git-ignored.
+
+## Agent skills
+
+The skills are in `home/.agents/skills/`. `config.toml` deploys that folder to
+`~/.agents/skills` and to `~/.claude/skills`. Change the skills in this repo,
+never the applied copies.
+
+- A new skill gets a row in `README.md`.
+- Run the checks in `README.md` before a commit.
+- `SKILL.md` frontmatter uses `name`, `description`, and optional `metadata`.
+  `metadata: { opencode/slash: "true" }` makes a slash command in OpenCode.
+- Skill names are unique across everything installed. OpenCode has no plugin
+  namespace, so names like `review` clash.
+- Skill text names no tool of one specific agent. It says "ask the engineer", not
+  `AskUserQuestion`.
+
 ## Terms
 
 - **desired**: the files in this repo. The source of truth.
@@ -72,3 +92,8 @@ and tap URLs; it is not a reason to install Homebrew.
 The config must be correct on macOS and on Linux, mainly headless Linux (VMs).
 Do not add a setting to `config.toml` unless it is portable. Put
 platform-specific settings in `config.macos.toml` or `config.linux.toml`.
+
+## Writing
+
+Write docs and commit messages in Simplified Technical English: active voice,
+one term for one thing, full sentences.
