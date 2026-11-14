@@ -6,11 +6,19 @@
   "permissions": {
     "defaultMode": "auto"
   },
-  "model": "fable[1m]",
+  "model": "claude-sonnet-5",
   "disableClaudeAiConnectors": true,
   "effortLevel": "low",
+  "autoCompactWindow": 150000,
   "tui": "fullscreen",
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "dark",
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "modelSettings": {
+    "claude-opus-5": {
+      "autoCompactWindow": 150000
+    }
+  }
 }
