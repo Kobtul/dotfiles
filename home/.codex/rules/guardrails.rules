@@ -1,0 +1,35 @@
+# Codex writes approved commands to default.rules, so these rules live in their own file.
+# Prefix match only: a force flag after other arguments (`git push origin -f`) only gets the `git push` prompt.
+
+prefix_rule(
+    pattern = ["git", "push", ["--force", "--force-with-lease", "-f"]],
+    decision = "forbidden",
+    justification = "Ask the user to force-push.",
+    match = ["git push --force origin main", "git push -f"],
+    not_match = ["git push origin main"],
+)
+
+prefix_rule(
+    pattern = ["gh", "repo", "delete"],
+    decision = "forbidden",
+    justification = "Ask the user to delete repositories.",
+)
+
+prefix_rule(
+    pattern = ["git", "push"],
+    decision = "prompt",
+    match = ["git push", "git push origin main"],
+)
+
+prefix_rule(pattern = ["git", "reset", "--hard"], decision = "prompt")
+prefix_rule(pattern = ["git", "clean"], decision = "prompt")
+prefix_rule(
+    pattern = ["gh", ["pr", "issue"], ["create", "merge", "close", "comment", "review", "edit"]],
+    decision = "prompt",
+    not_match = ["gh pr view 1", "gh issue list"],
+)
+prefix_rule(pattern = ["gh", "release", ["create", "edit", "delete", "upload"]], decision = "prompt")
+prefix_rule(pattern = ["gh", "repo", ["create", "edit", "rename", "archive", "fork", "sync"]], decision = "prompt")
+prefix_rule(pattern = ["gh", "api"], decision = "prompt")
+prefix_rule(pattern = ["mise", "dot", "apply"], decision = "prompt")
+prefix_rule(pattern = ["mise", ["bs", "bootstrap"]], decision = "prompt")
