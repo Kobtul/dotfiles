@@ -29,9 +29,10 @@ an attacker makes the unlikely conditions on purpose.
 - The change is the smallest one that fixes the observed failure. Compare its
   size with the sketch from step 2 of `SKILL.md`. A large change for a small
   failure needs a reason.
-- Compare a proactive pre-check with the reactive fix: no pre-check, catch the
-  error, and return a recovery message to the LLM. State the trade-off (less
-  code against a later failure). A pre-computation needs a reason.
+- Compare a proactive pre-check with the reactive fix: no pre-check, let the
+  operation fail, and handle the error where it surfaces (for an LLM, a
+  recovery message). State the trade-off (less code against a later failure).
+  A pre-computation needs a reason.
 - An existing helper, library, callback, plugin, or platform feature covers the
   case. Then the new code goes away.
 - Each change in the diff traces back to the task. Unrelated changes go into a
@@ -59,12 +60,13 @@ an attacker makes the unlikely conditions on purpose.
   trips the common case takes.
 - Numbers in the description of the change are claims. Check the setup behind
   them.
-- LLM behaviour has three or more runs.
+- Behaviour that is not deterministic (an LLM, concurrency, the network) has
+  three or more runs.
 - A change in the runtime cost (see "Runtime cost" in level 3) is measured on
   the base and the head with the largest allowed input: peak memory, the
-  number of threads and tasks, and the LLM calls and tokens. A timing for one
-  user is not evidence for concurrent use. Ask for a concurrent test, without
-  the LLM if possible, that measures CPU, memory, and I/O.
+  number of threads and tasks, and the external and LLM calls. A timing for
+  one user is not evidence for concurrent use. Ask for a concurrent test that
+  measures CPU, memory, and I/O.
 
 # Level 3: Design and correctness
 
@@ -72,7 +74,10 @@ an attacker makes the unlikely conditions on purpose.
 
 - The change agrees with the design and the acceptance criteria. Each
   divergence has a reason that you can verify in the code.
-- Shared logic is in the shared library. Logic for one consumer is in that
+- Judge the reach of a change by its effect on callers and users, not by its
+  size. A small diff can change a public interface, the responsibility of a
+  module, or what users see. A large diff inside one module can be safe.
+- Shared logic is in a shared module. Logic for one consumer is in that
   consumer, also when it is a plugin.
 - No override of upstream library code that is identical to the original.
   Copied third-party files keep the original code, unless they have a security
@@ -108,8 +113,8 @@ For one request on the head, compared with the base:
   input) takes. Extra hops for the most common case are a finding.
 - **External calls:** how many calls, and whether each call makes a new client
   or connection pool.
-- **Event loop:** new CPU-heavy work (parsing, rendering, data processing) in async
-  code, outside `asyncio.to_thread`. It blocks all requests of the process.
+- **Event loop:** new CPU-heavy work (parsing, rendering, data processing) in
+  async code. It blocks all requests of the process.
 - **What stays after the request:** caches, module-level dictionaries, session
   state, stored keys, artifacts, temporary files. Does it have a size limit or
   a TTL, or does it grow for the life of the process?
@@ -121,34 +126,22 @@ allowed input of the service.
 
 ## Settings and configuration
 
-- A required setting has no default and is not optional. The service must fail
-  at startup when the value is missing. This applies especially to base URLs.
-- A default that exists agrees with prod, or with the standard paths in the
-  container image.
+- A required setting has no default. The program fails at startup when the
+  value is missing.
 - No duplicate of an existing setting or secret. Remove obsolete settings.
-- Code reads values from the settings classes, not from environment variables.
 - A value becomes a setting only when it differs between environments or must
   change without a deployment. Otherwise a named constant at the top of the
   module is enough.
 - An optional integration, for example tracing, is skipped when it has no
   configuration. It does not fail on each call.
-- A tool that needs a runtime dependency checks it at startup, not on each
-  call.
 - A feature behind a flag loses the condition when the feature is released.
 
 ## Correctness and error handling
 
-- Catch only the errors that you expect, and log them, with
-  `logger.exception` when the trace helps. An error that is caught and dropped
-  hides the failure.
-- A specific error type when an endpoint maps the error to a status code.
-  Otherwise a real error can become a 404 by accident.
-- Status codes: 422 for invalid input, 404 only when the resource does not
-  exist. The endpoint maps errors to status codes, not the service. The request
-  body is a validated model, so the framework rejects invalid input and the
-  client sees the fields.
+- Catch only the errors that you expect, and log them, with the trace when it
+  helps. An error that is caught and dropped hides the failure.
 - External responses: a missing key gives a clear error or a default, not a
-  `KeyError`. `.get(key) or None` is the same as `.get(key)`.
+  crash.
 - An error message after a partial failure says what succeeded. Example: the
   order was saved, but the email failed.
 - A validation that the LLM must fix returns all errors at once, not only the
@@ -164,17 +157,13 @@ allowed input of the service.
   an approximate estimate is enough.
 - Edge cases: empty results, `None`, `0` as a valid value, file names that
   differ only in case, and a stated sort order.
-- Middleware: the request body can be read only once.
 - Async code: no missing `await` and no blocking I/O. Clients and values that
   do not change are created once, not on each call.
-- Timeouts come from the global timeout settings. A timeout that hides an
-  error is a finding.
+- A timeout that hides an error is a finding.
 
 ## Security and authorization
 
 - Check permissions, not roles.
-- Calls use the user's access token. Do not add filters that duplicate or
-  bypass the user's access.
 - A user cannot set protected fields, for example the owner ID or the
   price.
 - Validate URLs where they cross a trust boundary: tool arguments and
@@ -185,9 +174,7 @@ allowed input of the service.
 
 ## Text for the LLM: tool descriptions, SKILL.md, instructions
 
-- The tool docstring is the tool description. It uses the Google style,
-  without `:type` and without an errors section. The LLM sees the type hints.
-- The description does not mention a context parameter or other internals that
+- The tool description does not mention a context parameter or other internals that
   the LLM cannot see.
 - A large tool description is shorter, or the tool is deferred.
 - A parameter that the LLM cannot get a value for is not in the interface.
@@ -227,8 +214,8 @@ Only for code that survives levels 1 to 3.
 
 ## Reuse
 
-- Search the shared library and the repo for an existing helper before you
-  accept new code.
+- Search the repo and its dependencies for an existing helper before you
+  accept new code. Use a code search, not memory.
 - A pattern that occurs in two or more places becomes one helper.
 - Duplicated code in the change becomes a private function. Two identical
   models become one. An extra base class without a second user goes away.
@@ -239,8 +226,8 @@ Only for code that survives levels 1 to 3.
 
 - Type hints say what the code really takes and returns. Linters check that
   they exist, not that they are correct.
-- A fixed set of values is a `StrEnum`, not `(str, Enum)` or loose strings, and
-  the code compares against the enum.
+- A fixed set of values is an enum, not loose strings, and the code compares
+  against the enum.
 - Names say what the code does and agree with similar code, with one
   spelling for one thing.
 - A changed behaviour has an updated docstring.
@@ -263,6 +250,9 @@ Only for code that survives levels 1 to 3.
   linked from the `README.md`.
 - Docs describe the current behaviour. They do not describe earlier iterations
   or name commits.
+- A doc that contradicts the code is a `major` finding: each later reader
+  believes it. Each file, function, command, or setting that a doc names as
+  existing exists.
 - Docs are short. They do not repeat code in snippets, and they do not read
   like unedited generated text.
 
@@ -271,14 +261,13 @@ Only for code that survives levels 1 to 3.
 - Each deleted line of code, config, or docs has a reason. Ask why.
 - No change undoes an earlier fix, for example a typo that comes back or an
   older version number. This usually comes from a bad merge.
-- A library change has a new version. A consumer that needs it raises its
-  lower bound to that version. The library is released before the consumer.
 
 # Output
 
 Return only this:
 
 ```markdown
+**Lens:** <name>
 **Scope:** <base> → <head> for each repo, <n> files changed. **Checks:** <commands or pipeline, and results>
 **Base check:** <does the problem exist on the base: reproduced | not reproduced | not checked, and why>
 **Simpler alternative:** <the smallest or reactive fix and its trade-off, or "none">

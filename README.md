@@ -19,7 +19,7 @@ and to `~/.claude/skills` (Claude Code).
 | --- | --- | --- |
 | [`align`](home/.agents/skills/align/SKILL.md) | Checks that the agent and the user agree on the task before work starts | Own |
 | [`handoff`](home/.agents/skills/handoff/SKILL.md) | Writes a continuation note for a fresh session | Own |
-| [`review-changes`](home/.agents/skills/review-changes/SKILL.md) | Reviews the branch and the uncommitted files of one repo. It first checks that the problem exists on the base and that the change is necessary, then compares behaviour on the base and the head, then reviews design, the runtime cost, tests, and style. [`checklist.md`](home/.agents/skills/review-changes/checklist.md) holds the rules, in four levels | Own |
+| [`review-changes`](home/.agents/skills/review-changes/SKILL.md) | Reviews the branch and the uncommitted files of one repo. It first checks that the problem exists on the base and that the change is necessary, then compares behaviour on the base and the head, then reviews design, the runtime cost, tests, and style with three fresh reviewers, one lens each. [`checklist.md`](home/.agents/skills/review-changes/checklist.md) holds the rules, in four levels | Own |
 | [`unslop`](home/.agents/skills/unslop/SKILL.md) | Removes AI patterns from text. Start it with `/unslop` | [`cursor/plugins`](https://github.com/cursor/plugins/blob/main/pstack/skills/unslop/SKILL.md), `pstack/skills/unslop` |
 | [`find-docs`](home/.agents/skills/find-docs/SKILL.md) | Fetches current library documentation with the Context7 CLI, `npx ctx7@latest` | Installed by the Context7 CLI |
 | [`adk-docs`](home/.agents/skills/adk-docs/SKILL.md) | Fetches the official Google ADK documentation | Own |

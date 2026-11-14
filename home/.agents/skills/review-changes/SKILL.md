@@ -47,8 +47,8 @@ Write down:
 - the base commit and the head commit of each repo, and the uncommitted files;
 - the task: the issue or work item with its acceptance criteria, repro steps, and
   comments, or the goal that the engineer states. Note the release version and
-  the date of the evidence, the components that it names (agents, tools,
-  functions), and the fix directions that it proposes;
+  the date of the evidence, the components that it names (modules, functions,
+  commands), and the fix directions that it proposes;
 - the plan: `DESIGN.md` and the approved scope, if they exist.
 
 Save the description of the change. Read it only after step 2.
@@ -61,8 +61,9 @@ Do this before you read the diff.
    `git log --since=<evidence date> -- <files>` to find changes after the
    report.
 2. Sketch the smallest change that solves the task on the base, and the
-   reactive variant (no pre-check: catch the error and return a recovery
-   message). A sketch made before you see the diff is not anchored by it.
+   reactive variant (no pre-check: let the operation fail and handle the error
+   where it surfaces). A sketch made before you see the diff is not anchored
+   by it.
 3. If a later commit changed or removed the mechanism of the bug, the bug can
    be fixed already. Reproduce the failure on the base with the same class of
    input. If you cannot run it, the commit that removed the mechanism is the
@@ -75,18 +76,24 @@ Do this before you read the diff.
 ## 3. Run the checks
 
 The target file says which checks to run. A failing check is a `blocker`.
-Ruff, mypy, and the other linters already report what they catch, so the
-review does not repeat it.
+The linters and type checkers already report what they catch, so the review
+does not repeat it.
 
-For a frontend repo, use the lint and test scripts of its `package.json`.
-Levels 1 to 3 apply as they are; level 4 has no frontend items yet.
+## 4. Delegate to fresh reviewers
 
-## 4. Delegate to a fresh reviewer
+Give the static review to fresh read-only subagents, one for each lens, in
+parallel. The author's reasoning, or yours, must not bias them. This matters
+most when you wrote the code. One reviewer with one lens finds more than one
+reviewer with the whole checklist.
 
-If the agent can start a subagent, give the static review to a fresh read-only
-subagent. The author's reasoning, or yours, must not bias it. This matters most
-when you wrote the code. Write the inputs to files in the target's scratch
-folder, and give it only facts:
+| Lens | Looks for | Checklist |
+| --- | --- | --- |
+| Zoom out | Is the change necessary? Is it the smallest fix for the root cause, not for a symptom? Does existing code cover it? Verify reuse with a code search, not from memory. | Level 1, "Reuse" |
+| Design critic | Wrong assumptions, failure modes without a mitigation, runtime cost, security, tests. | Levels 2 and 3 |
+| Fresh reader | First write in your own words what the change does and how it fits the code around it. A part that you cannot paraphrase is a `major` finding. Then: names, comments, and docs that contradict the code. | "Code clarity", "Docs" |
+
+Write the inputs to files in the target's scratch folder, and give each
+reviewer only facts:
 
 ```text
 Review a code change. Read-only: do not edit, commit, or post comments.
@@ -98,11 +105,14 @@ Plan: <DESIGN.md and approved scope, or "none">
 Check results from step 3: <file path>
 Existing comments: <file path, or "none">
 Checklist: <absolute path of checklist.md> and <team.md, if it exists>
+Lens: <name>: <"Looks for" text>. Report only findings of this lens, from the checklist sections <sections>.
 Return the output block from the "Output" section of the checklist.
 ```
 
-Do not summarize the change, defend it, or hint at results. If no subagent is
-available, do the review yourself with the same inputs.
+Do not summarize the change, defend it, or hint at results. If a reviewer
+fails, start it again once. If it fails again, its lens is `not run`. A lens
+that did not run is not a lens with no findings. If no subagent is available,
+do one pass for each lens yourself, with the same inputs.
 
 For a second opinion, the engineer can give the same brief to another agent
 or model.
@@ -131,34 +141,39 @@ agrees.
   passes on the base catches nothing from this change. A regression test must
   fail there.
 - **Runtime cost:** run the largest allowed input on the base and the head.
-  Compare the peak memory (`tracemalloc` for each variant, or one process for
-  each variant, because `ru_maxrss` is the peak of the whole process), the
-  threads and tasks (`threading.active_count()`, `len(asyncio.all_tasks())`),
-  and the LLM calls and tokens (the trace). Run several requests at
-  the same time, without the LLM if possible: a timing for one user hides the
-  load on CPU, memory, and I/O.
-- Record which tools the model calls, and how often. Do not generalize a result
+  Compare the peak memory (one process for each variant), the threads and
+  tasks, and the external and LLM calls. Run several requests at the same
+  time: a timing for one user hides the load on CPU, memory, and I/O.
+  `team.md` can name the tools of the stack.
+- Record which tools an LLM calls, and how often. Do not generalize a result
   beyond the inputs that you ran.
 
 Put worktrees, scripts, logs, and results in the target's scratch folder. Do
-not use `/tmp`: in WSL2 it can be a RAM disk, and a restart deletes it. Remove
-the worktrees with `git worktree remove` when the review ends.
+not use `/tmp`: a restart can delete it. Remove the worktrees with
+`git worktree remove` when the review ends.
 
 ## 6. Check the findings
 
-Confirm each finding in the code or in a run. Mark each one `observed` (a run
-showed it) or `code reading`. A `code reading` finding is a question or a risk,
-never a defect. Delete a finding when it has no realistic trigger, when the
-code already handles the case, when an existing comment already has it, or when
-the change does not touch the code in question. A finding that names a helper
+Merge the findings of the lenses: one finding for one problem, with the
+highest severity that a lens gave it. Confirm each finding in the code or in
+a run. Mark each one `observed` (a run showed it) or `code reading`. A
+`code reading` finding is a question or a risk, never a defect. Delete a
+finding when it has no realistic trigger, when the code already handles the
+case, when an existing comment already has it, or when the change does not
+touch the code in question. A finding that names a helper
 names its file.
+
+Each finding costs the engineer's attention. Keep it only when it names a
+realistic trigger and a decision that the engineer can make. Drop a hedge or a
+general caveat without one.
 
 ## 7. Report
 
 Show the verdict and the findings, grouped by level and then by severity:
 `blocker`, `major`, `minor`, `question`. Give the file, the line, the label,
-and the text. The target file says where the result goes. The engineer decides
-what to fix, post, or ignore.
+and the text. Add one line with the status of each lens: the number of
+findings, or `not run`. The target file says where the result goes. The
+engineer decides what to fix, post, or ignore.
 
 ## 8. Learn after the human review
 
