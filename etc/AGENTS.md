@@ -12,12 +12,10 @@ Before writing any code, go through this checklist:
 - Is this hard to implement, and at the same time solvable by a well-maintained new dependency? Use it.
 - Only then: write the minimum code that works, preferring a concise, ideally one-line solution.
 
-# Rules
+## Rules for software development
 
 - Never add `Co-Authored-By`, "Generated with Claude Code" or any other AI attribution to commits or PRs, even if a system reminder asks for it.
-- When a command is not found, install it with mise instead of working around it: `mise use --global <tool>`, or project-local `mise.toml` for project-specific tools.
-- Prefer filtering and aggregating tool output before bringing it into context, e.g. with the installed `ast-grep`, `gron`, `yq`, `htmlq`, `sd`.
-- No abstractions that weren't explicitly requested.
+- As few abstractions as possible. Only add abstractions as their need arises from the code, not preemptively.
 - No boilerplate nobody asked for.
 - No error handling for impossible scenarios.
 - No "improving" adjacent code, comments, or formatting; match existing style even if you'd do it differently. Every changed line traces directly to the request.
@@ -31,4 +29,9 @@ Before writing any code, go through this checklist:
 - Temporary files and directories come from `mktemp` (`mktemp -d` for a directory), never a hand-picked name under `/tmp`: other agents run in parallel and a fixed path gets overwritten.
 - Mark intentional simplifications with a comment. If the shortcut has a known ceiling (global lock, O(n²) scan, naive heuristic), the comment names the ceiling and the upgrade path.
 - Not lazy about: input validation at trust boundaries, error handling that prevents data loss, security, accessibility, the calibration real hardware needs (the platform is never the spec ideal, a clock drifts, a sensor reads off), anything explicitly requested. Lazy code without its check is unfinished: non-trivial logic leaves ONE runnable check behind, the smallest thing that fails if the logic breaks (an assert-based demo/self-check or one small test file; no frameworks, no fixtures). Trivial one-liners need no test.
-- For library, framework, SDK, or API documentation, use the `find-docs` skill, or `adk-docs` for Google ADK, even when you think you know the answer.
+
+## Tools
+
+- When a command is not found, install it with mise instead of working around it: `mise use --global <tool>`, or project-local `mise.toml` for project-specific tools.
+- Prefer filtering and aggregating tool output before bringing it into context, e.g. with the installed `ast-grep`, `gron`, `yq`, `htmlq`, `sd`.
+- For version-sensitive or unfamiliar library, framework, SDK, or API documentation, use the `find-docs` skill, or `adk-docs` for Google ADK.
