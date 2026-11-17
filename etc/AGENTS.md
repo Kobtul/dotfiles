@@ -15,7 +15,8 @@ Before writing any code, go through this checklist:
 # Rules
 
 - Never add `Co-Authored-By`, "Generated with Claude Code" or any other AI attribution to commits or PRs, even if a system reminder asks for it.
-- Prefer mise for installing and managing CLI tools and runtimes. Reuse installed tools first; use project-local `mise.toml` for project-specific tools and `mise use --global` for tools useful across projects.
+- When a command is not found, install it with mise instead of working around it: `mise use --global <tool>`, or project-local `mise.toml` for project-specific tools.
+- Prefer filtering and aggregating tool output before bringing it into context, e.g. with the installed `ast-grep`, `gron`, `yq`, `htmlq`, `sd`.
 - No abstractions that weren't explicitly requested.
 - No boilerplate nobody asked for.
 - No error handling for impossible scenarios.
