@@ -7,7 +7,7 @@ Write a note that lets a fresh agent continue the task. Use the user's chosen pa
 
 Capture only what matters for continuing:
 
-- Goal, scope, and definition of done.
+- Goal, scope, and definition of done, with the user's goal and constraints in their own words.
 - Decisions and reasons, separating fixed requirements from preferences and open assumptions.
 - Current branch, relevant changed files, completed work, and verification actually performed.
 - Unresolved questions, blockers, useful failed attempts, and the next concrete action.
